@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>Simple Online Store</title>
+<style>
+
+body { font-family: Arial, sans-serif; padding: 0; padding: 0; background: #f9f9f9; }
+header { background: #330; color: White; padding: 20px; text-align: center; }
+.products { display: flex; justify-content: space-around; margin: 20px; flex-wrap: wrap; }
+.product { background: white; border: 1px solid #ccc; border-radius: 8px; width: 220px; margin: 10px; padding: 10px;
+text-align: center; box-shadow: 0 0 5px rgba(0,0,0,0.1); }
+.product img { width: 100%; height: 150px; object-fit: cover; border-radius: 6px; }
+.cart, .order-form { margin: 20px; padding: 10px; background: #fff; border: 1px solid #ccc; border-radius: 8px; }
+label { display: block; margin-top: 10px; }
+input, textarea, select, button { width: 100%; padding: 8px; margin-top: 5px; border-radius: 5px; border: 1px solid #ccc; }
+button { background: #28a745; color: black; border: none; margin-top: 10px; cursor: pointer; }
+button:hover { background: #218838; }
+
+</style>
+</head>
+<body>
+<header>
+<h1>"Sole Collector Online Store"</h1>
+<p>Welcome! Select products and place your order.</p>
+</header>
+
+<section class="products">
+<div class="product">
+    
+    <img src="C:\Users\UDMCL02-47\Downloads\retrolowOG1.jpg">
+        <h3>Jordan 1 Retro Low OG</h3>
+        <p>Price Php 8,999</p>
+        <button onclick= "addToCart('Jordan 1 Retro Low OG', 8999)" >Add to Cart </button>
+    
+</div>
+    <div class="product">
+        <img src="C:\Users\UDMCL02-47\Downloads\j1 triple white1.jfif">
+        <h3>Jordan 1 Retro Low Triple White</h3>
+        <p>Price Php 8,999</p>
+        <button onclick= "addToCart('Jordan 1 Retro Low Triple White', 8999)" >Add to Cart</button>
+    
+</div>
+    <div class="product">
+        <img src="C:\Users\UDMCL02-47\Downloads\travis olive1.jpg"title="Air Jordan 1 x Travis Scott Olive -Price Php 68,000">
+
+        <h3>Jordan 1 x Travis Scott Olive</h3>
+        <p>Price Php 68,000</p>
+        <button onclick= "addToCart('Jordan 1 x Travis Scott Olive', 68000)" >Add to Cart</button>
+    
+</div>
+    <div class="product">
+        <img src="C:\Users\UDMCL02-47\Downloads\Travis fragment1.webp" alt="Product 4">
+        <h3>Jordan 1 x Travis Scott Fragment</h3>
+        <p>Php 170,000</p>
+        <button onclick= "addToCart('Jordan 1 x Travis Scott Fragment', 170000)" >Add to Cart</button>
+    </div>
+
+</section>
+<section class="cart">
+    <h2>Shopping Cart</h2>
+    <ul id="cart-items"></ul>
+    <p><strong>Total: P<span id="cart-total">0</span></strong></p>
+</section>
+
+<section class="order-form">
+    <h2>Order Form</h2>
+    <form onsubmit="submitOrder(event)">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" required>
+        <label for="email">Email</label>
+        <input type="email" id="email" required>
+        <label for="phone">Phone Number</label>
+        <input type="text" id="phone" required>
+        <label for="address">Shipping Address</label>
+        <textarea id="address" required></textarea>
+        <label for="payment">Payment Method</label>
+        <select id="payment">
+            <option value="COD">Cash on Delivery</option>
+            <option value="GCash">GCash</option>
+            <option value="Bank">Bank Transfer</option>
+        </select>
+        <button type="submit">Submit Order</button>
+    </form>
+</section>
+
+<script>
+let cart = [];
+let total = 0;
+
+function addToCart(name, price) {
+    cart.push({ name, price });
+    total += price;
+    updateCart();
+}
+
+function updateCart() {
+    const cartItems = document.getElementById('cart-items');
+    const cartTotal = document.getElementById('cart-total');
+    
+    cartItems.innerHTML = '';
+    cart.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = `${item.name} - Php ${item.price}`;
+        cartItems.appendChild(li);
+    });
+    
+    cartTotal.textContent = total;
+}
+
+function submitOrder(event) {
+    event.preventDefault();
+    if (cart.length === 0) {
+        alert('Your cart is empty!');
+        return;
+    }
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const phone = document.getElementById('phone').value;
+    const address = document.getElementById('address').value;
+    const payment = document.getElementById('payment').value;
+    
+    alert(`Order submitted!\nName: ${name}\nEmail: ${email}\nPhone: ${phone}\nAddress: ${address}\nPayment: ${payment}\nTotal: Php ${total}`);
+    // Reset cart and form
+    cart = [];
+    total = 0;
+    updateCart();
+    document.querySelector('form').reset();
+}
+</script>
+
+</body>
+</html>
